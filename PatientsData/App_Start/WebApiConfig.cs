@@ -17,9 +17,12 @@ namespace PatientsData
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-
+            // Install cors nuget - Microsoft.AspNet.WebApi.Cors
+            // using System.Web.Http.Cors;
+            // var cors = new EnableCorsAttribute("*", "*", "GET,POST");
+            // config.EnableCors(cors);
+            // or [EnableCors("*", "*", "GET")] on specific controllers without passing cors attribute above
            
-
 
             // Web API routes
             config.MapHttpAttributeRoutes();
