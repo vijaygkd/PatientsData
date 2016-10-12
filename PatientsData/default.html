@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+    <h3>
+        Auth Request
+    </h3>
+
+<button id="getPatients">Get Patients</button>
+
+<br/>
+<br/>
+
+
+<form id="userData">
+    <input type="email" name="email" placeholder="email"/><br/>
+    <input type="password" name="password" placeholder="password"/><br/>
+    <input type="password" name="confirmPassword" placeholder="password"/><br/>
+    <input type="submit" id="register" value="Register"/><br/>
+    <input type="submit" id="login" value="login"/>
+</form>
+
+
+<pre id="output"></pre>
+    
+    <pre id="debug"></pre>
+    
+
+<script src="Scripts/jquery-1.10.2.js"></script>
+
+    <script>
+
+        $(function() {
+
+            var login = function() {
+                // login is not part of account controller. Its part of OWIN middleware
+                // grant_type = password. pass this in header
+                // This is login setup for MVC and webApi
+                var url = "/token";
+                var data = $("#userData").serialize();            
+                data = data + "&grant_type=password";
+                data = data.replace("email", "username");
+                //showDebug(data);
+                $.post(url, data)
+                    .success(saveAccessToken)
+                    .always(showDebug);
+                return false;
+            }
+
+            var register = function() {
+                var url = "/api/account/register";
+                var data = $("#userData").serialize();
+                $.post(url, data).always(showResponse);
+                return false;
+            }
+
+            var getPatients = function () {
+
+                var url = "/api/patients/";
+                $.ajax(url, {
+                    type: "GET",
+                    headers: getHeaders()
+                }).always(showResponse);
+                
+                return false;
+            }
+
+            var showResponse = function(object) {
+                $("#output").text(JSON.stringify(object, null, 4));
+            }
+
+            var showDebug = function (object) {
+                $("#debug").text(JSON.stringify(object, null, 4));
+            }
+
+            var saveAccessToken = function(data) {
+                access_token = data.access_token;
+            }
+
+            var getHeaders = function() {
+                if (access_token) {
+                    return { "Authorization": "Bearer " + access_token };
+                }
+            }
+
+            var access_token = "";
+
+            $("#getPatients").click(getPatients);
+            $("#register").click(register);
+            $("#login").click(login);
+        })
+
+    </script>
+
+</body>
+</html>

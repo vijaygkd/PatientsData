@@ -10,6 +10,7 @@ using PatientsData.Models;
 namespace PatientsData.Controllers
 {
     //[EnableCors("*", "*", "GET")]
+    [Authorize]         // For api authentication
     public class PatientsController : ApiController
     {
         IMongoCollection<Patient> _patients;
