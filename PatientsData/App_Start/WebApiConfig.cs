@@ -22,7 +22,9 @@ namespace PatientsData
             // var cors = new EnableCorsAttribute("*", "*", "GET,POST");
             // config.EnableCors(cors);
             // or [EnableCors("*", "*", "GET")] on specific controllers without passing cors attribute above
-           
+            config.EnableCors();
+
+
 
             // Web API routes
             config.MapHttpAttributeRoutes();

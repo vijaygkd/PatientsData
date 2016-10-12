@@ -4,12 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using MongoDB.Driver;
 using PatientsData.Models;
 
 namespace PatientsData.Controllers
 {
-    //[EnableCors("*", "*", "GET")]
+    [EnableCors("*", "*", "GET")]
     [Authorize]         // For api authentication
     public class PatientsController : ApiController
     {
