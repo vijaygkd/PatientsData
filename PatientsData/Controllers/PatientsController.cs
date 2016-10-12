@@ -9,6 +9,7 @@ using PatientsData.Models;
 
 namespace PatientsData.Controllers
 {
+    //[EnableCors("*", "*", "GET")]
     public class PatientsController : ApiController
     {
         IMongoCollection<Patient> _patients;
